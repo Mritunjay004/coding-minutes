@@ -1,5 +1,3 @@
-// Expected Time Complexity: O(n^2)
-
 #include <iostream>
 using namespace std;
 class node
@@ -13,55 +11,53 @@ public:
         this->next = NULL;
     }
 };
-
 int len(node *head)
 {
     node *temp = head;
-    int i = 0;
+    int cnt = 0;
+
     while (temp != NULL)
     {
-        i++;
+        cnt++;
         temp = temp->next;
     }
-
-    return i;
+    return cnt;
 }
+
 node *bubble_sort_LinkedList_itr(node *head)
 {
     int n = len(head) - 1;
-
     while (n--)
     {
         node *prev = NULL;
-        node *cur = head;
-        while (cur->next != NULL)
+        node *curr = head;
+
+        while (curr->next != NULL)
         {
-
-            if (cur->data >= cur->next->data)
+            if (curr->data >= curr->next->data)
             {
-
                 if (prev == NULL)
                 {
                     // first node
-                    node *nxt = cur->next;
-                    cur->next = nxt->next;
-                    nxt->next = cur;
+                    node *nxt = curr->next;
+                    curr->next = nxt->next;
+                    nxt->next = curr;
                     prev = nxt;
-                    head = prev;
+                    head = nxt;
                 }
                 else
                 {
-                    node *nxt = cur->next;
+                    node *nxt = curr->next;
                     prev->next = nxt;
-                    cur->next = nxt->next;
-                    nxt->next = cur;
+                    curr->next = nxt->next;
+                    nxt->next = curr;
                     prev = nxt;
                 }
             }
             else
             {
-                prev = cur;
-                cur = cur->next;
+                prev = curr;
+                curr = curr->next;
             }
         }
     }
